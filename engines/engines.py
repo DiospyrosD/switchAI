@@ -42,9 +42,11 @@ class BaseCall:
         self.total_cost = self.prompt_cost+self.completion_cost
         return self.chat_history
 
-    def configure_context(self, new_context_value):
+    def configure_context(self, new_context_value, messages_list):
         self.context_value = new_context_value
         self.messages_list[0] = {"role":"system", "content": self.context_value}
+        messages_list = self.messages_list
+        return new_context_value, messages_list
         
 class GPT4Call(BaseCall):
     def __init__(self):
