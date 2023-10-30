@@ -177,13 +177,14 @@ def engine_set_clear(question, my_chat, engine, total_cost, prompt_cost, complet
 def config_function(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, file_path, timeout_check):
     reset = "\033[0m"
     green = f"\033[38;5;46m"
-    new_context = input("Enter a new question context here:\nCONFIG#")
-    if new_context.lower() == "quit" or new_context.lower() == "exit":
+    new_context_value = input("Enter a new question context here:\nCONFIG#")
+    if new_context_value.lower() == "quit" or new_context_value.lower() == "exit":
         sys.exit()
     else:
-        my_chat.configure_context(new_context)
+        new_context_value, messages_list = my_chat.configure_context(new_context_value, messages_list)
         print(f"Context value updated to: {green}{my_chat.context_value}{reset}\n")
         start_time1 = []
+        #messages_list[0] = {"role":"system", "content": new_context_value}
         for j in range(100):
             input_text, start_time1 = take_input(engine, start_time1, file_path)
             question = input_text
