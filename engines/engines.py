@@ -44,6 +44,7 @@ class BaseCall:
 
     def configure_context(self, new_context_value, messages_list):
         self.context_value = new_context_value
+        self.messages_list = messages_list
         self.messages_list[0] = {"role":"system", "content": self.context_value}
         messages_list = self.messages_list
         return new_context_value, messages_list
