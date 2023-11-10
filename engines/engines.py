@@ -3,7 +3,7 @@
 import openai
 
 class BaseCall:
-    def __init__(self, model_id="gpt-3.5-turbo", context_value="make responses as brief as possible; this is for testing only"):
+    def __init__(self, model_id="gpt-3.5-turbo-1106", context_value="make responses as brief as possible; this is for testing only"):
         self.model_id = model_id
         self.context_value = context_value
         self.chat_history = None
@@ -24,6 +24,8 @@ class BaseCall:
             self.messages_list.append(self.user_role)
         self.completion = openai.ChatCompletion.create(
             model=self.model_id,
+            temperature = 0.2,
+            top_p = 0.1,
             messages=self.messages_list
         )
         #print(self.messages_list) #uncomment if you wish to see messages_list cache upon each return
@@ -53,6 +55,21 @@ class GPT4Call(BaseCall):
     def __init__(self):
         super().__init__()
         self.model_id="gpt-4"
+    
+    def call_api_history(self, question, messages_list):
+        self.completion = self.build_call_history(question, messages_list)
+        self.chat_history = [self.completion.choices[0].message.content, self.completion.usage["prompt_tokens"], self.completion.usage["completion_tokens"]]
+        self.prompt_token_list.append(self.chat_history[1])
+        self.completion_token_list.append(self.chat_history[2])
+        self.prompt_cost = sum(self.prompt_token_list)*0.00001
+        self.completion_cost = sum(self.completion_token_list)*0.00003
+        self.total_cost = self.prompt_cost+self.completion_cost
+        return self.chat_history
+        
+class GPT4TCall(BaseCall):
+    def __init__(self):
+        super().__init__()
+        self.model_id="gpt-4-1106-preview"
     
     def call_api_history(self, question, messages_list):
         self.completion = self.build_call_history(question, messages_list)
