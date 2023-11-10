@@ -8,6 +8,7 @@ import select
 
 from engines.engines import BaseCall
 from engines.engines import GPT4Call
+from engines.engines import GPT4TCall
 from utils.switch_append import switch_append
 from utils.call_api import call_api_with_timeout
 
@@ -20,6 +21,11 @@ def core_logic(question, my_chat, engine, total_cost, prompt_cost, completion_co
         switch_append(question_list, switch_answer, messages_list, my_chat, timeout_check)
         my_chat=GPT4Call()
         engine="gpt-4"
+        engine_set(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, file_path, timeout_check)
+    elif question.lower() == "gpt-4-t" or question.lower() == "gpt4t":
+        switch_append(question_list, switch_answer, messages_list, my_chat, timeout_check)
+        my_chat=GPT4TCall()
+        engine="gpt-4-t"
         engine_set(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, file_path, timeout_check)
     elif question.lower() == "gpt-3" or question.lower() == "gpt3":
         switch_append(question_list, switch_answer, messages_list, my_chat, timeout_check)
@@ -50,6 +56,9 @@ def core_logic(question, my_chat, engine, total_cost, prompt_cost, completion_co
             engine_set_clear(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, messages_list_0, file_path, timeout_check)
         elif engine == "gpt-4":
             my_chat=GPT4Call()
+            engine_set_clear(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, messages_list_0, file_path, timeout_check)
+        elif engine == "gpt-4-t":
+            my_chat=GPT4TCall()
             engine_set_clear(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, messages_list_0, file_path, timeout_check)
     elif question.lower() == "config":
         switch_append(question_list, switch_answer, messages_list, my_chat, timeout_check)
