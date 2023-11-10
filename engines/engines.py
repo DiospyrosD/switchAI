@@ -61,8 +61,8 @@ class GPT4Call(BaseCall):
         self.chat_history = [self.completion.choices[0].message.content, self.completion.usage["prompt_tokens"], self.completion.usage["completion_tokens"]]
         self.prompt_token_list.append(self.chat_history[1])
         self.completion_token_list.append(self.chat_history[2])
-        self.prompt_cost = sum(self.prompt_token_list)*0.00001
-        self.completion_cost = sum(self.completion_token_list)*0.00003
+        self.prompt_cost = sum(self.prompt_token_list)*0.00003
+        self.completion_cost = sum(self.completion_token_list)*0.00006
         self.total_cost = self.prompt_cost+self.completion_cost
         return self.chat_history
         
@@ -76,7 +76,7 @@ class GPT4TCall(BaseCall):
         self.chat_history = [self.completion.choices[0].message.content, self.completion.usage["prompt_tokens"], self.completion.usage["completion_tokens"]]
         self.prompt_token_list.append(self.chat_history[1])
         self.completion_token_list.append(self.chat_history[2])
-        self.prompt_cost = sum(self.prompt_token_list)*0.00003
-        self.completion_cost = sum(self.completion_token_list)*0.00006
+        self.prompt_cost = sum(self.prompt_token_list)*0.00001
+        self.completion_cost = sum(self.completion_token_list)*0.00003
         self.total_cost = self.prompt_cost+self.completion_cost
         return self.chat_history
