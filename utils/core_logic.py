@@ -66,7 +66,7 @@ def core_logic(question, my_chat, engine, total_cost, prompt_cost, completion_co
             my_chat=GPT4TCall()
             engine_set_clear(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, messages_list_0, file_path, timeout_check)
         elif engine == "gpt-3-i":
-            my_chat=GPT4TCall()
+            my_chat=GPT3ICall()
             engine_set_clear(question, my_chat, engine, total_cost, prompt_cost, completion_cost, carried_total_cost, carried_prompt_cost, carried_completion_cost, messages_list, switch_answer, question_list, messages_list_0, file_path, timeout_check)
     elif question.lower() == "config":
         switch_append(question_list, switch_answer, messages_list, my_chat, timeout_check)
